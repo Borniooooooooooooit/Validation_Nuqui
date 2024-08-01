@@ -12,7 +12,7 @@ class UserTaskController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -28,12 +28,19 @@ class UserTaskController extends Controller
      */
     public function store(Request $request)
     {
+        $UserTask = new Usertask();
         $request->validate([
             'task_name'   => 'required',
             'status'      => 'required',
             'description' => 'required',
             'deadline'    => 'required|date',
         ]);
+        
+        $UserTask->task_name       = $request['task_name'];
+        $UserTask->status          = $request['status'];
+        $UserTask->description     = $request['description'];
+        $UserTask->deadline        = $request['deadline'];
+        $UserTask->save();
 
         return back()->with('success','Data save Successfully');
     }
